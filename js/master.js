@@ -11,6 +11,20 @@ class Snake {
   update(){
     this.x += this.sx;
     this.y += this.sy;
+
+    if(this.x > canvas.width){
+      this.x = 0;
+    }
+    if(this.x < 0){
+      this.x = canvas.width;
+    }
+
+    if(this.y > canvas.height){
+      this.y = 0;
+    }
+    if(this.y < 0){
+      this.y = canvas.height;
+    }
 }
 
   draw(){
@@ -53,6 +67,17 @@ class Food {
   constructor(){
     this.x = getRandomPos();
     this.y = getRandomPos();
+    this.color = "red";
+  }
+
+  update(){
+    this.x = getRandomPos();
+    this.y = getRandomPos();
+  }
+
+  draw(){
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, 10, 10);
   }
 }
 
@@ -61,7 +86,7 @@ function controller(evt){
   snake.changeDir(dir);
 }
 
-getRandomPos = () => (Math.floor(Math.random() * (60 - 1 + 1)) + 1) * 10;
+getRandomPos = () => (Math.floor(Math.random() * (50 - 1 + 1)) + 1) * 10;
 
 
 let canvas = document.getElementById('game-canvas');
@@ -75,4 +100,9 @@ function game(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   snake.update();
   snake.draw();
+  food.draw();
+
+  if(snake.x == food.x && snake.y == food.y){
+    food.update();
+  }
 }
