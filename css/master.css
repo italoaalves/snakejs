@@ -136,3 +136,29 @@ header h2{
     100%{background-position:0% 50%}
 
 }
+
+/*fake media query, game not working on phones*/
+@media only screen and (max-width: 600px) {
+  header h1, h2{
+    font-size: 16px;
+  }
+
+  .gradient-rainbow{
+    font-size: 16px;
+  }
+
+  #home{
+    padding-top: 50%;
+    font-size: 22px;
+  }
+
+  #game-canvas{
+    width: 340px;
+    height: 400px;
+  }
+
+  .rainbow-box{
+    width: 340px;
+    height: 400px;
+  }
+}
