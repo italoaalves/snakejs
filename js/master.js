@@ -1,89 +1,83 @@
-const bs=bq= 10;
-let canvas, ctx;
-let curDir=score = 0;
-let ax=ay = newFoodPos();
-let snkPos = [100, 50];
-let snk = [[100, 50],[90, 50],[80, 50]];
+class Snake {
+  constructor(){
+    this.x = 100;
+    this.y = 80;
+    this.sx = 10;
+    this.sy = 0;
+    this.color = "green";
+    this.tail = [];
+  }
 
+  set speed(newSpeed){
+    this.speed = newSpeed;
+  }
 
-window.onload = function() {
-  canvas = document.getElementById("game-canvas");
-  ctx = canvas.getContext("2d");
-  window.addEventListener("keydown", controller);
-  setInterval(game, 1000/15);
+  update(){
+    this.x += this.sx;
+    this.y += this.sy;
+
 }
 
-function game() {
-  //Snake movement
-  switch (curDir) {
-    case 0:
-      snkPos[1]-=10;
-      break;
-    case 1:
-      snkPos[0]+=10;
-      break;
-    case 2:
-      snkPos[1]+=10;
-      break;
-    case 3:
-      snkPos[0]-=10;
-      break;
+  draw(){
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, 10, 10);
   }
 
-  snk.unshift(snkPos);
-  if (snkPos[0] == ax && snkPos[1] == ay) {
-    ax=newFoodPos();
-    ay=newFoodPos();
-  } else {
-    snk.pop();
-  }
-
-  ctx.fillStyle = "black";
-  ctx.fillRect(0,0, canvas.width, canvas.height);
-
-  //draw snake
-  ctx.fillStyle = "green";
-  for (let pos of snk){
-    console.log(pos);
-    ctx.fillRect(pos[0], pos[1], 10, 10);
-  }
-
-  ctx.fillStyle = "red";
-  ctx.fillRect(ax*10,ay*10, 10, 10);
-}
-
-//Controller function
-function controller(evt) {
-  switch (evt.keyCode) {
-    case 37:
-      //left
-      if (curDir!=3 && curDir!=1) {
-        curDir = 3;
-      }
-      break;
-    case 38:
-      //up
-      if (curDir!=0 && curDir!=2) {
-        curDir = 0;
-      }
-      break;
-    case 39:
-      //right
-      if (curDir!=1 && curDir!=3) {
-        curDir = 1;
-      }
-      break;
-    case 40:
-      //down
-      if (curDir!=2 && curDir!=0) {
-        curDir = 2;
-      }
-      break;
+  changeDir(dir){
+    console.log(dir);
+    switch (dir) {
+      case "Up":
+        if (this.sy !=-10 && this.sy!=10) {
+          this.sx=0;
+          this.sy=-10;
+        }
+        break;
+      case "Right":
+        if (this.sx !=-10 && this.sx!=10) {
+          this.sx=10;
+          this.sy=0;
+        }
+        break;
+      case "Left":
+        if (this.sx !=-10 && this.sx!=10) {
+          this.sx=-10;
+          this.sy=0;
+        }
+        break;
+      case "Down":
+        if (this.sy !=-10 && this.sy!=10) {
+          this.sx=0;
+          this.sy=10;
+        }
+        break;
+    }
   }
 }
 
-function newFoodPos() {
-    min = Math.ceil(1);
-    max = Math.floor(60);
-    return (Math.floor(Math.random() * (max - min + 1)) + min)*10;
+class Food {
+  constructor(){
+    this.x = getRandomPos();
+    this.y = getRandomPos();
+  }
+}
+
+function controller(evt){
+  dir = evt.key.replace("Arrow", '');
+  snake.changeDir(dir);
+}
+
+getRandomPos = () => (Math.floor(Math.random() * (60 - 1 + 1)) + 1) * 10;
+
+
+let canvas = document.getElementById('game-canvas');
+ctx = canvas.getContext("2d");
+let snake = new Snake();
+let food = new Food();
+window.addEventListener("keydown", controller);
+window.setInterval(game, 1000/15);
+
+function game(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  snake.update();
+  snake.draw();
 }
