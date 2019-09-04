@@ -5,38 +5,36 @@ class Snake {
     this.sx = 10;
     this.sy = 0;
     this.color = "green";
-    this.size = 1;
+    this.size = 0;
     this.tail = [];
   }
 
   update(){
-   for (var i = 0; i < this.tail.length; i++) {
-     this.tail[i] = this.tail[i+1];
-   }
+    this.tail.shift();
 
-    this.tail[this.size-1] = {x: this.x, y: this.y}
+    this.tail[this.size] = {x: this.x, y: this.y};
 
     this.x += this.sx;
     this.y += this.sy;
 
-    if(this.x > canvas.width){
+    if (this.x > canvas.width) {
       this.x = 0;
     }
-    if(this.x < 0){
+    if (this.x < 0) {
       this.x = canvas.width;
     }
 
-    if(this.y > canvas.height){
+    if (this.y > canvas.height) {
       this.y = 0;
     }
-    if(this.y < 0){
+    if (this.y < 0) {
       this.y = canvas.height;
     }
 }
 
   draw(){
     ctx.fillStyle = this.color;
-    for (var i = 0; i < this.tail.length; i++) {
+    for(let i = 0; i < this.tail.length; i++) {
       ctx.fillRect(this.tail[i].x, this.tail[i].y, 10, 10);
     }
   }
@@ -91,7 +89,7 @@ class Food {
 
 function controller(evt){
   if (!start) {
-    window.setInterval(game, 60);
+    window.setInterval(game, 1000/15);
     aperte.remove();
     start = true;
   }
@@ -105,14 +103,15 @@ function gameOver(){
 
 getRandomPos = () => (Math.floor(Math.random() * (48 - 1 + 1)) + 1) * 10;
 
-
 const canvas = document.getElementById('game-canvas');
 const score = document.getElementById('score');
 const aperte = document.getElementById('home');
 ctx = canvas.getContext("2d");
+
 let snake = new Snake();
 let food = new Food();
 let start = false;
+
 window.addEventListener("keydown", controller);
 window.focus();
 
@@ -123,8 +122,8 @@ function game(){
   food.draw();
 
   if(snake.x == food.x && snake.y == food.y){
-    food.update();
     snake.size++;
+    food.update();
     score.innerText = snake.size.toString();
   }
 }
