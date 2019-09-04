@@ -8,14 +8,9 @@ class Snake {
     this.tail = [];
   }
 
-  set speed(newSpeed){
-    this.speed = newSpeed;
-  }
-
   update(){
     this.x += this.sx;
     this.y += this.sy;
-
 }
 
   draw(){
