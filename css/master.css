@@ -53,6 +53,10 @@ header h2{
   margin: 1.5em auto;
 }
 
+.desktop-hidden{
+  display: none;
+}
+
 .rainbow-box {
   background-color: #302244;
   border: 5px solid transparent;
@@ -141,6 +145,20 @@ header h2{
 @media only screen and (max-width: 600px) {
   header h1, h2{
     font-size: 16px;
+  }
+
+  .desktop-hidden{
+    position: absolute;
+    bottom: 14%;
+    width: 100%;
+    padding: 2em;
+    display: block;
+    font-family: DS-DIGI;
+    font-size: 12px;
+    color: red;
+    background-color: rgba(0,0,0, 0.80);
+
+    border: 2px red solid;
   }
 
   .gradient-rainbow{

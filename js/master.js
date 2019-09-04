@@ -36,13 +36,12 @@ class Snake {
 
   draw(){
     ctx.fillStyle = this.color;
-    for(let i of this.tail){
-      ctx.fillRect(i.x, i.y, 10, 10);
+    for (var i = 0; i < this.tail.length; i++) {
+      ctx.fillRect(this.tail[i].x, this.tail[i].y, 10, 10);
     }
   }
 
   changeDir(dir){
-    console.log(dir);
     switch (dir) {
       case "Up":
         if (this.sy !=-10 && this.sy!=10) {
@@ -100,7 +99,11 @@ function controller(evt){
   snake.changeDir(dir);
 }
 
-getRandomPos = () => (Math.floor(Math.random() * (50 - 1 + 1)) + 1) * 10;
+function gameOver(){
+  console.log("YOU DIED");
+}
+
+getRandomPos = () => (Math.floor(Math.random() * (48 - 1 + 1)) + 1) * 10;
 
 
 const canvas = document.getElementById('game-canvas');
