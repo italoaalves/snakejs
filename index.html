@@ -10,11 +10,13 @@
   <body>
     <header>
       <h1>Snake Game</h1>
-      <h2 class="gradient-rainbow">SCORE: 9999</h2>
+      <h2  class="gradient-rainbow"> | SCORE: <span id="score"></span>|</h2>
     </header>
 
     <main class="container">
-      <canvas class="rainbow-box" id="game-canvas" width="500" height="500" style="background-color: #333343;"></canvas>
+      <div class="rainbow-box">
+        <canvas id="game-canvas" width="500" height="500" style="background-color: #333343;"></canvas>
+      </div>
     </main>
 
     <footer>

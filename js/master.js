@@ -5,10 +5,17 @@ class Snake {
     this.sx = 10;
     this.sy = 0;
     this.color = "green";
+    this.size = 1;
     this.tail = [];
   }
 
   update(){
+   for (var i = 0; i < this.tail.length; i++) {
+     this.tail[i] = this.tail[i+1];
+   }
+
+    this.tail[this.size-1] = {x: this.x, y: this.y}
+
     this.x += this.sx;
     this.y += this.sy;
 
@@ -29,7 +36,9 @@ class Snake {
 
   draw(){
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, 10, 10);
+    for(let i of this.tail){
+      ctx.fillRect(i.x, i.y, 10, 10);
+    }
   }
 
   changeDir(dir){
@@ -89,12 +98,14 @@ function controller(evt){
 getRandomPos = () => (Math.floor(Math.random() * (50 - 1 + 1)) + 1) * 10;
 
 
-let canvas = document.getElementById('game-canvas');
+const canvas = document.getElementById('game-canvas');
+const score = document.getElementById('score');
 ctx = canvas.getContext("2d");
 let snake = new Snake();
 let food = new Food();
 window.addEventListener("keydown", controller);
-window.setInterval(game, 1000/15);
+window.setInterval(game, 60);
+window.focus();
 
 function game(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -104,5 +115,7 @@ function game(){
 
   if(snake.x == food.x && snake.y == food.y){
     food.update();
+    snake.size++;
+    score.innerText = snake.size.toString();
   }
 }
