@@ -102,6 +102,18 @@ header h2{
   animation: gradient-rainbow 30s ease infinite;
 }
 
+#home {
+  font-family: DS-DIGI;
+  font-size: 48px;
+  color: white;
+  position: absolute;
+  text-align: center;
+  padding-top: 20%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0, 0.5);
+}
+
 @keyframes blink {
     0% { opacity: 1; }
     100% { opacity: 0; }

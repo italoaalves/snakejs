@@ -91,6 +91,11 @@ class Food {
 }
 
 function controller(evt){
+  if (!start) {
+    window.setInterval(game, 60);
+    aperte.remove();
+    start = true;
+  }
   dir = evt.key.replace("Arrow", '');
   snake.changeDir(dir);
 }
@@ -100,11 +105,12 @@ getRandomPos = () => (Math.floor(Math.random() * (50 - 1 + 1)) + 1) * 10;
 
 const canvas = document.getElementById('game-canvas');
 const score = document.getElementById('score');
+const aperte = document.getElementById('home');
 ctx = canvas.getContext("2d");
 let snake = new Snake();
 let food = new Food();
+let start = false;
 window.addEventListener("keydown", controller);
-window.setInterval(game, 60);
 window.focus();
 
 function game(){
