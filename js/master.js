@@ -5,14 +5,18 @@ class Snake {
     this.sx = 10;
     this.sy = 0;
     this.color = "green";
-    this.size = 0;
-    this.tail = [];
+    this.feed = false;
+    this.tail = [{}];
   }
 
   update(){
-    this.tail.shift();
+    this.tail.unshift({x: this.x, y: this.y});
 
-    this.tail[this.size] = {x: this.x, y: this.y};
+    if (this.feed) {
+      this.feed = false;
+    } else {
+      this.tail.pop();
+    }
 
     this.x += this.sx;
     this.y += this.sy;
@@ -34,8 +38,8 @@ class Snake {
 
   draw(){
     ctx.fillStyle = this.color;
-    for(let i = 0; i < this.tail.length; i++) {
-      ctx.fillRect(this.tail[i].x, this.tail[i].y, 10, 10);
+    for (let block of this.tail) {
+      ctx.fillRect(block.x, block.y, 10, 10);
     }
   }
 
@@ -111,6 +115,7 @@ ctx = canvas.getContext("2d");
 let snake = new Snake();
 let food = new Food();
 let start = false;
+let wait = ms => new Promise((r, j)=>setTimeout(r, ms))
 
 window.addEventListener("keydown", controller);
 window.focus();
@@ -118,11 +123,11 @@ window.focus();
 function game(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   snake.update();
-  snake.draw();
   food.draw();
+  snake.draw();
 
   if(snake.x == food.x && snake.y == food.y){
-    snake.size++;
+    snake.feed = true;
     food.update();
     score.innerText = snake.size.toString();
   }
