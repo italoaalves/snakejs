@@ -129,10 +129,6 @@ function game(){
   if(snake.x == food.x && snake.y == food.y){
     snake.feed = true;
     food.update();
-<<<<<<< HEAD
     score.innerText = snake.tail.length.toString();
-=======
-    score.innerText = snake.tail.lenght.toString();
->>>>>>> e716c80cbb9dc21b3333361aebc7b4c748b6f48f
   }
 }
