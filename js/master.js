@@ -129,6 +129,6 @@ function game(){
   if(snake.x == food.x && snake.y == food.y){
     snake.feed = true;
     food.update();
-    score.innerText = snake.size.toString();
+    score.innerText = snake.tail.length.toString();
   }
 }
