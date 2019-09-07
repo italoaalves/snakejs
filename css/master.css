@@ -8,8 +8,11 @@
   src: url("../fonts/DS-DIGI.TTF");
 }
 
+@font-face {
+  font-family: ds-die;
+  src: url("../fonts/OptimusPrincepsSemiBold.TTF");
+}
 body{
-  overflow: hidden;
   padding: 0;
   margin: 0;
   background-color: #e1e1e1;
@@ -35,6 +38,7 @@ header{
 
 header h1{
   padding: 0;
+  margin: 0.2em;
   font-size: 48px;
   font-family: dpcomic, sans-serif;
   display: inline;
@@ -42,6 +46,7 @@ header h1{
 
 header h2{
   padding: 0;
+  margin: 0.2em;
   font-size: 48px;
   font-family: DS-DIGI;
   display:inline;
@@ -62,16 +67,26 @@ header h2{
   border: 5px solid transparent;
   border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
   border-image-slice: 1;
-  padding: 10px 0px 0px;
+  padding: 0;
   margin: 0 auto;
-  width: 520px;
-  height: 510px;
+  width: 400px;
   box-shadow: 0px 0px 18px #333;
 }
 
+.ds-die{
+  color: red;
+  font-family: ds-die;
+}
+
+#game-canvas{
+  margin: 0;
+  padding: 0;
+}
+
 .footer-box{
+  margin: 0;
   position: absolute;
-  width: 100vw;
+  width: 100%;
   bottom: 0;
   color: lime;
   background-color: #3f3f3f;
@@ -106,7 +121,7 @@ header h2{
   animation: gradient-rainbow 30s ease infinite;
 }
 
-#home {
+.home {
   font-family: DS-DIGI;
   font-size: 48px;
   color: white;

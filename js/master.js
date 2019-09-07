@@ -1,3 +1,7 @@
+//Global Variables
+let canvas, score, overlayHome, bodys, ctx, snake, food, func;
+
+//Classes
 class Snake {
   constructor(){
     this.x = 100;
@@ -21,14 +25,14 @@ class Snake {
     this.x += this.sx;
     this.y += this.sy;
 
-    if (this.x > canvas.width) {
+    if (this.x >= canvas.width) {
       this.x = 0;
     }
     if (this.x < 0) {
       this.x = canvas.width;
     }
 
-    if (this.y > canvas.height) {
+    if (this.y >= canvas.height) {
       this.y = 0;
     }
     if (this.y < 0) {
@@ -91,44 +95,69 @@ class Food {
   }
 }
 
+
+//Functions
+getRandomPos = () => (Math.floor(Math.random() * (39 - 1 + 1)) + 1) * 10;
+
+function starter(evt){
+    if(evt.key === "Enter"){
+      window.removeEventListener("keydown", starter);
+
+      canvas = document.getElementById('game-canvas');
+      ctx = canvas.getContext("2d");
+      score = document.getElementById('score');
+      overlayHome = document.getElementById('home');
+
+      snake = new Snake();
+      food = new Food();
+
+      overlayHome.remove();
+      window.addEventListener("keydown", controller);
+      func = window.setInterval(game, 1000/15);
+    }
+}
+
 function controller(evt){
-  if (!start) {
-    window.setInterval(game, 1000/15);
-    aperte.remove();
-    start = true;
-  }
   dir = evt.key.replace("Arrow", '');
   snake.changeDir(dir);
 }
 
 function gameOver(){
   console.log("YOU DIED");
+  window.clearInterval(func);
+
+  overlayHome = document.createElement('span');
+  overlayHome.setAttribute('id', 'home');
+  overlayHome.setAttribute('class', 'home');
+  overlayHome.innerHTML = "<h1><span class='ds-die'>YOU DIE</span><br>PRESS ENTER TO RETRY</h1>";
+  body = document.getElementsByTagName('Body')[0];
+  overlayHome = body.insertBefore(overlayHome, document.getElementById("main-header"));
+
+  window.removeEventListener("keydown", controller);
+  window.addEventListener("keydown", starter);
 }
 
-getRandomPos = () => (Math.floor(Math.random() * (48 - 1 + 1)) + 1) * 10;
-
-const canvas = document.getElementById('game-canvas');
-const score = document.getElementById('score');
-const aperte = document.getElementById('home');
-ctx = canvas.getContext("2d");
-
-let snake = new Snake();
-let food = new Food();
-let start = false;
-let wait = ms => new Promise((r, j)=>setTimeout(r, ms))
-
-window.addEventListener("keydown", controller);
-window.focus();
-
 function game(){
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //Colision
+  if (snake.tail.some(block => block.x === snake.x && block.y === snake.y)) {
+    gameOver();
+  }
+
   snake.update();
+
+  //Screen sync
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   food.draw();
   snake.draw();
 
+
+  //Feeding check
   if(snake.x == food.x && snake.y == food.y){
     snake.feed = true;
     food.update();
     score.innerText = snake.tail.length.toString();
   }
 }
+
+//Begin
+window.addEventListener("keydown", starter);
