@@ -129,7 +129,7 @@ function gameOver(){
   overlayHome = document.createElement('span');
   overlayHome.setAttribute('id', 'home');
   overlayHome.setAttribute('class', 'home');
-  overlayHome.innerHTML = "<h1><span class='ds-die'>YOU DIE</span><br>PRESS ENTER TO RETRY</h1>";
+  overlayHome.innerHTML = "<h1><span class='ds-die'>YOU DIED</span><br>PRESS ENTER TO RETRY</h1>";
   body = document.getElementsByTagName('Body')[0];
   overlayHome = body.insertBefore(overlayHome, document.getElementById("main-header"));
 
