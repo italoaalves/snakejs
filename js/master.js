@@ -1,14 +1,22 @@
 //Global Variables
-let canvas, score, overlayHome, bodys, ctx, snake, food, func;
+const canvas = document.getElementById('game-canvas'),
+ctx = canvas.getContext("2d"),
+score = document.getElementById('score'),
+bgSfx = new Audio("../sfx/bg.wav"),
+feedSfx = new Audio("../sfx/feed.wav"),
+gameOverSfx = new Audio("../sfx/gameover.wav");
+
+let overlayHome, bodys, snake, food, func, draw;
+
 
 //Classes
 class Snake {
   constructor(){
     this.x = 100;
     this.y = 80;
-    this.sx = 10;
+    this.sx = 20;
     this.sy = 0;
-    this.color = "green";
+    this.color = "lime";
     this.feed = false;
     this.tail = [{}];
   }
@@ -17,6 +25,7 @@ class Snake {
     this.tail.unshift({x: this.x, y: this.y});
 
     if (this.feed) {
+      feedSfx.play();
       this.feed = false;
     } else {
       this.tail.pop();
@@ -43,34 +52,34 @@ class Snake {
   draw(){
     ctx.fillStyle = this.color;
     for (let block of this.tail) {
-      ctx.fillRect(block.x, block.y, 10, 10);
+      ctx.fillRect(block.x, block.y, 18, 18);
     }
   }
 
   changeDir(dir){
     switch (dir) {
       case "Up":
-        if (this.sy !=-10 && this.sy!=10) {
+        if (!this.sy) {
           this.sx=0;
-          this.sy=-10;
+          this.sy=-20;
         }
         break;
       case "Right":
-        if (this.sx !=-10 && this.sx!=10) {
-          this.sx=10;
+        if (!this.sx) {
+          this.sx=20;
           this.sy=0;
         }
         break;
       case "Left":
-        if (this.sx !=-10 && this.sx!=10) {
-          this.sx=-10;
+        if (!this.sx) {
+          this.sx=-20;
           this.sy=0;
         }
         break;
       case "Down":
-        if (this.sy !=-10 && this.sy!=10) {
+        if (!this.sy) {
           this.sx=0;
-          this.sy=10;
+          this.sy=20;
         }
         break;
     }
@@ -81,7 +90,7 @@ class Food {
   constructor(){
     this.x = getRandomPos();
     this.y = getRandomPos();
-    this.color = "red";
+    this.color = "tomato";
   }
 
   update(){
@@ -91,29 +100,29 @@ class Food {
 
   draw(){
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, 10, 10);
+    ctx.fillRect(this.x, this.y, 18, 18);
   }
 }
 
 
 //Functions
-getRandomPos = () => (Math.floor(Math.random() * (39 - 1 + 1)) + 1) * 10;
+getRandomPos = () => (Math.floor(Math.random() * (24 - 1 + 1)) + 1) * 20;
 
 function starter(evt){
     if(evt.key === "Enter"){
       window.removeEventListener("keydown", starter);
 
-      canvas = document.getElementById('game-canvas');
-      ctx = canvas.getContext("2d");
-      score = document.getElementById('score');
       overlayHome = document.getElementById('home');
 
       snake = new Snake();
       food = new Food();
 
+      bgSfx.loop= true;
+      bgSfx.play();
+
       overlayHome.remove();
       window.addEventListener("keydown", controller);
-      func = window.setInterval(game, 1000/15);
+      func = window.setInterval(game, 120);
     }
 }
 
@@ -126,10 +135,13 @@ function gameOver(){
   console.log("YOU DIED");
   window.clearInterval(func);
 
+  bgSfx.pause();
+  gameOverSfx.play();
+
   overlayHome = document.createElement('span');
   overlayHome.setAttribute('id', 'home');
   overlayHome.setAttribute('class', 'home');
-  overlayHome.innerHTML = "<h1><span class='ds-die'>YOU DIED</span><br>PRESS ENTER TO RETRY</h1>";
+  overlayHome.innerHTML = "<h1>PRESS ENTER TO RETRY</h1>";
   body = document.getElementsByTagName('Body')[0];
   overlayHome = body.insertBefore(overlayHome, document.getElementById("main-header"));
 
@@ -140,16 +152,17 @@ function gameOver(){
 function game(){
   //Colision
   if (snake.tail.some(block => block.x === snake.x && block.y === snake.y)) {
-    gameOver();
+    if (!(snake.x === snake.tail[1].x)){
+        gameOver();
+    }
   }
 
   snake.update();
 
   //Screen sync
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  food.draw();
   snake.draw();
-
+  food.draw();
 
   //Feeding check
   if(snake.x == food.x && snake.y == food.y){

@@ -10,14 +10,16 @@
   <body>
     <span id="home" class="home"><h1>Press ENTER to start</h1></span>
     <span class="desktop-hidden"><h1>ERROR:<br>Mobile version is not done yet. Try PC.</h1></span>
-    <header id="main-header">
-      <h1 id="logo">Snake Game</h1>
-      <h2  class="gradient-rainbow"> | SCORE: <span id="score"></span>|</h2>
+    <header id="main-header" class="rainbow-box">
+      <div class="gradient-rainbow main-header">
+        <h1 id="logo">Snake Game</h1>
+        <h2>SCORE: <span id="score"></span></h2>
+      </div>
     </header>
 
-    <main class="container">
-      <div class="rainbow-box">
-        <canvas id="game-canvas" width="400" height="400" style="background-color: #333343;"></canvas>
+    <main class="container gradient-rainbow">
+      <div class="frame">
+        <canvas id="game-canvas" width="500" height="500" style="background-color: #333343;"></canvas>
       </div>
     </main>
 
