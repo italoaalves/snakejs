@@ -149,10 +149,10 @@ function gameOver(){
 function headBlink(){
   if(i){
     ctx.fillStyle = "lime";
-    ctx.fillRect(snake.tail[1].x, snake.tail[1].y, 18, 18);
+    ctx.fillRect(snake.tail[0].x, snake.tail[0].y, 18, 18);
     i = false;
   } else {
-    ctx.clearRect(snake.tail[1].x, snake.tail[1].y, 18, 18);
+    ctx.clearRect(snake.tail[0].x, snake.tail[0].y, 18, 18);
     i = true;
   }
 }
