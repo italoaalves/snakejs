@@ -12,33 +12,32 @@
   font-family: ds-die;
   src: url("../fonts/OptimusPrincepsSemiBold.TTF");
 }
-body{
+
+
+body {
   overflow: hidden;
   padding: 0;
   margin: 0;
   background-color: #2f2f2f;
 }
 
-footer{
+footer {
   margin: 0;
   padding: 0;
 }
 
-.main-header{
-
+.main-header {
+  color: white;
+  font-family: "Lucida sans", sans-serif;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 0 2em;
   margin: 0;
-  font-family: "Lucida sans", sans-serif;
-  color: white;
-
   box-shadow: 0px 1px 10px grey;
 }
 
-header h1{
+header h1 {
   padding: 0;
   margin: 0.2em;
   font-size: 48px;
@@ -46,7 +45,7 @@ header h1{
   display: inline;
 }
 
-header h2{
+header h2 {
   padding: 0;
   margin: 0.2em;
   font-size: 48px;
@@ -54,39 +53,7 @@ header h2{
   display:inline;
 }
 
-.container{
-  text-align: center;
-  padding: 50px;
-  margin: 1.5em auto;
-}
-
-.desktop-hidden{
-  display: none;
-}
-
-.rainbow-box {
-  background-image: linear-gradient(to left bottom, #4f4f4f, #3f3f3f);
-  border-bottom: 5px solid transparent;
-  border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
-  border-image-slice: 1;
-  padding: 0;
-  margin: 0 auto;
-  width: 100%;
-  box-shadow: 0px 0px 18px #333;
-}
-
-.ds-die{
-  color: red;
-  font-family: ds-die;
-}
-
-#game-canvas{
-  margin: 0;
-  padding: 0;
-  box-shadow: 0px 0px 18px #333;
-}
-
-footer{
+footer {
   margin: 0;
   position: absolute;
   width: 100%;
@@ -95,7 +62,7 @@ footer{
   background-color: #404040;
 }
 
-footer p{
+footer p {
   font-family: monospace;
   padding: 1.3em;
   margin-left: 1em;
@@ -104,24 +71,14 @@ footer p{
   border-radius: 5px;
 }
 
-.blink {
-  -webkit-animation: blink .75s linear infinite;
-  -moz-animation: blink .75s linear infinite;
-  -ms-animation: blink .75s linear infinite;
-  -o-animation: blink .75s linear infinite;
-  animation: blink .75s linear infinite;
+.container {
+  text-align: center;
+  padding: 50px;
+  margin: 1.5em auto;
 }
 
-.gradient-rainbow{
-  background: linear-gradient(270deg, #b827fc, #2c90fc, #b8fd33, #fec837, #fd1892);
-  background-size: 1000% 1000%;
-
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  -webkit-animation: gradient-rainbow 30s ease infinite;
-  -moz-animation: gradient-rainbow 30s ease infinite;
-  animation: gradient-rainbow 30s ease infinite;
+.desktop-hidden {
+  display: none;
 }
 
 .home {
@@ -137,16 +94,74 @@ footer p{
   background-color: rgba(0,0,0, 0.5);
 }
 
+.rainbow-box {
+  background-image: linear-gradient(to left bottom, #4f4f4f, #3f3f3f);
+  border-bottom: 5px solid transparent;
+  border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+  border-image-slice: 1;
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+  box-shadow: 0px 0px 18px #333;
+}
+
+#game-canvas {
+  margin: 0;
+  padding: 0;
+  box-shadow: 0px 0px 18px lightgrey;
+}
+
+.blink {
+  -webkit-animation: blink .75s linear infinite;
+  -moz-animation: blink .75s linear infinite;
+  -ms-animation: blink .75s linear infinite;
+  -o-animation: blink .75s linear infinite;
+  animation: blink .75s linear infinite;
+}
+
+/*for chrome only*/
+.gradient-rainbow2 {
+      background: linear-gradient(270deg, #b827fc, #2c90fc, #b8fd33, #fec837, #fd1892);
+      background-size: 1000% 1000%;
+      width: 500px;
+      padding: 5px;
+      background-blend-mode: saturation;
+      margin: 0px auto;
+      z-index: -3;
+
+      -webkit-background-clip: border-box;
+
+      -webkit-animation: gradient-rainbow 30s ease infinite;
+}
+
+
+
+
+.gradient-rainbow {
+  background: linear-gradient(270deg, #b827fc, #2c90fc, #b8fd33, #fec837, #fd1892);
+  background-size: 1000% 1000%;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  -webkit-animation: gradient-rainbow 30s ease infinite;
+  -moz-animation: gradient-rainbow 30s ease infinite;
+  animation: gradient-rainbow 30s ease infinite;
+}
+
+
+
 @keyframes blink {
     0% { opacity: 1; }
     100% { opacity: 0; }
 }
 
-@-webkit-keyframes gradient-rainbow {
+@-webkit-keyframes gradient-rainbow2 {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
 }
+
 @-moz-keyframes gradient-rainbow {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
@@ -180,21 +195,21 @@ footer p{
     border: 2px red solid;
   }
 
-  .gradient-rainbow{
+  .gradient-rainbow {
     font-size: 16px;
   }
 
-  #home{
+  #home {
     padding-top: 50%;
     font-size: 22px;
   }
 
-  #game-canvas{
+  #game-canvas {
     width: 340px;
     height: 400px;
   }
 
-  .rainbow-box{
+  .rainbow-box {
     width: 340px;
     height: 400px;
   }

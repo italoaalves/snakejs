@@ -172,5 +172,12 @@ function game(){
   }
 }
 
+
+//chrome hack
+if (navigator.appVersion.indexOf("Chrome/") != -1) {
+  const frame = document.getElementById("frame");
+  frame.setAttribute("class", "gradient-rainbow2");
+}
+
 //Begin
 window.addEventListener("keydown", starter);
