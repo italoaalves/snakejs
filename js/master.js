@@ -121,6 +121,7 @@ function starter(evt){
       bgSfx.play();
 
       overlayHome.remove();
+      score.innerText = "0";
       window.addEventListener("keydown", controller);
       func = window.setInterval(game, 120);
     }
