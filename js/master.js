@@ -2,9 +2,9 @@
 const canvas = document.getElementById('game-canvas'),
 ctx = canvas.getContext("2d"),
 score = document.getElementById('score'),
-bgSfx = new Audio("/sfx/bg.wav"),
-feedSfx = new Audio("/sfx/feed.wav"),
-gameOverSfx = new Audio("/sfx/gameover.wav");
+bgSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/bg.wav"),
+feedSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/feed.wav"),
+gameOverSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/gameover.wav");
 
 let overlayHome, bodys, snake, food, func, draw;
 
