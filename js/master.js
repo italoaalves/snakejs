@@ -6,7 +6,7 @@ bgSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/bg.wav"),
 feedSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/feed.wav"),
 gameOverSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/gameover.wav");
 
-let overlayHome, bodys, snake, food, func, draw;
+let overlayHome, bodys, snake, food, func, draw, i;
 
 
 //Classes
@@ -110,6 +110,7 @@ getRandomPos = () => (Math.floor(Math.random() * (24 - 1 + 1)) + 1) * 20;
 
 function starter(evt){
     if(evt.key === "Enter"){
+      window.clearInterval(draw);
       window.removeEventListener("keydown", starter);
 
       overlayHome = document.getElementById('home');
@@ -125,11 +126,6 @@ function starter(evt){
       window.addEventListener("keydown", controller);
       func = window.setInterval(game, 120);
     }
-}
-
-function controller(evt){
-  dir = evt.key.replace("Arrow", '');
-  snake.changeDir(dir);
 }
 
 function gameOver(){
@@ -150,10 +146,27 @@ function gameOver(){
   window.addEventListener("keydown", starter);
 }
 
+function headBlink(){
+  if(i){
+    ctx.fillStyle = "lime";
+    ctx.fillRect(snake.tail[1].x, snake.tail[1].y, 18, 18);
+    i = false;
+  } else {
+    ctx.clearRect(snake.tail[1].x, snake.tail[1].y, 18, 18);
+    i = true;
+  }
+}
+
+function controller(evt){
+  dir = evt.key.replace("Arrow", '');
+  snake.changeDir(dir);
+}
+
 function game(){
   //Colision
   if (snake.tail.some(block => block.x === snake.x && block.y === snake.y)) {
     if (!(snake.x === snake.tail[1].x)){
+        draw = window.setInterval(headBlink, 500);
         gameOver();
     }
   }
@@ -172,6 +185,7 @@ function game(){
     score.innerText = snake.tail.length.toString();
   }
 }
+
 
 
 //chrome hack
