@@ -2,7 +2,6 @@
 const canvas = document.getElementById('game-canvas'),
 ctx = canvas.getContext("2d"),
 score = document.getElementById('score'),
-bgSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/bg.wav"),
 feedSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/feed.wav"),
 gameOverSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/gameover.wav");
 
@@ -106,7 +105,7 @@ class Food {
 
 
 //Functions
-getRandomPos = () => (Math.floor(Math.random() * (24 - 1 + 1)) + 1) * 20;
+getRandomPos = () => (Math.floor(Math.random() * (19 - 1 + 1)) + 1) * 20;
 
 function starter(evt){
     if(evt.key === "Enter"){
@@ -117,9 +116,6 @@ function starter(evt){
 
       snake = new Snake();
       food = new Food();
-
-      bgSfx.loop= true;
-      bgSfx.play();
 
       overlayHome.remove();
       score.innerText = "0";
@@ -132,7 +128,6 @@ function gameOver(){
   console.log("YOU DIED");
   window.clearInterval(func);
 
-  bgSfx.pause();
   gameOverSfx.play();
 
   overlayHome = document.createElement('span');
