@@ -3,10 +3,10 @@ const deviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width,
 score = document.getElementById('score'),
 feedSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/feed.wav"),
 gameOverSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/gameover.wav"),
-bUp = '<img src="../img/up-arrow.png">',
-bRight = '<img src="../img/right-arrow.png">',
-bDown = '<img src="../img/down-arrow.png">',
-bLeft = '<img src="../img/left-arrow.png">';
+bUp = '<img src="/img/up-arrow.png">',
+bRight = '<img src="/img/right-arrow.png">',
+bDown = '<img src="/img/down-arrow.png">',
+bLeft = '<img src="/img/left-arrow.png">';
 
 let overlayHome, canvas, frame,
 gamePad, ctx, body, snake, food,
