@@ -173,7 +173,7 @@ function controller(evt){
 }
 
 function swapButtons(){
-  if (snake.curDir == 'Down' || snake.curDir == 'up') {
+  if (snake.curDir == 'Down' || snake.curDir == 'Up') {
     buttons[0].setAttribute('onclick', "controller('Left')");
     buttons[0].innerHTML = bLeft;
 
