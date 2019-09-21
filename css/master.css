@@ -13,6 +13,19 @@
   src: url("../fonts/OptimusPrincepsSemiBold.TTF");
 }
 
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+button{
+  width: 30%;
+}
+
+button img{
+  width: 30%;
+}
 
 body {
   overflow: hidden;
@@ -73,7 +86,8 @@ footer p {
 
 .container {
   text-align: center;
-  padding: 50px;
+  padding-top: 1em;
+  padding-bottom: 3em;
   margin: 1.5em auto;
 }
 
@@ -134,9 +148,6 @@ footer p {
       -webkit-animation: gradient-rainbow 30s ease infinite;
 }
 
-
-
-
 .gradient-rainbow {
   background: linear-gradient(270deg, #b827fc, #2c90fc, #b8fd33, #fec837, #fd1892);
   background-size: 1000% 1000%;
@@ -178,6 +189,7 @@ footer p {
 /*fake media query, game not working on phones*/
 @media only screen and (max-width: 600px) {
   header h1, h2{
+    margin: 0;
     font-size: 16px;
   }
 
@@ -194,23 +206,28 @@ footer p {
 
     border: 2px red solid;
   }
+  .mobileHidden{
+    display: none;
+  }
 
-  .gradient-rainbow {
-    font-size: 16px;
+  #frame{
+    margin: 0;
+  }
+
+  .container{
+    margin: 0;
+  }
+
+  .rainbow-box{
+    margin: 0;
+  }
+
+  #game-canvas{
+    margin: 0;
   }
 
   #home {
     padding-top: 50%;
     font-size: 22px;
-  }
-
-  #game-canvas {
-    width: 340px;
-    height: 400px;
-  }
-
-  .rainbow-box {
-    width: 340px;
-    height: 400px;
   }
 }

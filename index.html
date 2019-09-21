@@ -8,8 +8,7 @@
     <script defer type="text/javascript" src="js/master.js"></script>
   </head>
   <body>
-    <span id="home" class="home"><h1>Press ENTER to start</h1></span>
-    <span class="desktop-hidden"><h1>ERROR:<br>Mobile version is not done yet. Try PC.</h1></span>
+    <span id="home" class="home"><h1>Press ENTER or Touch to start</h1></span>
     <header id="main-header" class="rainbow-box">
       <div class="gradient-rainbow main-header">
         <h1 id="logo">Snake Game</h1>
@@ -19,12 +18,15 @@
 
     <main class="container gradient-rainbow">
       <div id="frame">
-        <canvas id="game-canvas" width="400" height="400" style="background-color: #333343;"></canvas>
+        <!--game canvas placeholder -->
       </div>
     </main>
 
+    <nav id="game-pad">
+    </nav>
+
     <footer>
-      <div class="footer-box">
+      <div class="footer-box mobileHidden">
         <p>&gt Just for fun<span class="blink">_</span></p>
       </div>
     </footer>

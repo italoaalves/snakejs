@@ -1,23 +1,29 @@
 //Global Variables
-const canvas = document.getElementById('game-canvas'),
-ctx = canvas.getContext("2d"),
+const deviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width,
 score = document.getElementById('score'),
 feedSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/feed.wav"),
-gameOverSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/gameover.wav");
+gameOverSfx = new Audio("https://alvesitalo.github.io/snake.js/sfx/gameover.wav"),
+bUp = '<img src="../img/up-arrow.png">',
+bRight = '<img src="../img/right-arrow.png">',
+bDown = '<img src="../img/down-arrow.png">',
+bLeft = '<img src="../img/left-arrow.png">';
 
-let overlayHome, bodys, snake, food, func, draw, i;
+let overlayHome, canvas, frame,
+gamePad, ctx, body, snake, food,
+func, draw, i, blockSize;
 
 
 //Classes
 class Snake {
-  constructor(){
+  constructor(blockSize){
     this.x = 100;
     this.y = 80;
-    this.sx = 20;
+    this.sx = blockSize;
     this.sy = 0;
     this.color = "lime";
     this.feed = false;
     this.tail = [{}];
+    this.curDir = 'Right';
   }
 
   update(){
@@ -51,34 +57,36 @@ class Snake {
   draw(){
     ctx.fillStyle = this.color;
     for (let block of this.tail) {
-      ctx.fillRect(block.x, block.y, 18, 18);
+      ctx.fillRect(block.x, block.y, blockSize-2, blockSize-2);
     }
   }
 
   changeDir(dir){
+    this.curDir = dir;
+
     switch (dir) {
       case "Up":
         if (!this.sy) {
           this.sx=0;
-          this.sy=-20;
+          this.sy=-blockSize;
         }
         break;
       case "Right":
         if (!this.sx) {
-          this.sx=20;
+          this.sx=blockSize;
           this.sy=0;
         }
         break;
       case "Left":
         if (!this.sx) {
-          this.sx=-20;
+          this.sx=-blockSize;
           this.sy=0;
         }
         break;
       case "Down":
         if (!this.sy) {
           this.sx=0;
-          this.sy=20;
+          this.sy=blockSize;
         }
         break;
     }
@@ -99,22 +107,23 @@ class Food {
 
   draw(){
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, 18, 18);
+    ctx.fillRect(this.x, this.y, blockSize-2, blockSize-2);
   }
 }
 
 
 //Functions
-getRandomPos = () => (Math.floor(Math.random() * (19 - 1 + 1)) + 1) * 20;
+getRandomPos = () => (Math.floor(Math.random() * (((canvas.width)/blockSize)-1 - 1 + 1)) + 1) * blockSize;
 
 function starter(evt){
-    if(evt.key === "Enter"){
+    if(evt.key === "Enter" || evt.type == "touchstart"){
       window.clearInterval(draw);
       window.removeEventListener("keydown", starter);
+      window.removeEventListener("touchstart", starter);
 
       overlayHome = document.getElementById('home');
 
-      snake = new Snake();
+      snake = new Snake(blockSize);
       food = new Food();
 
       overlayHome.remove();
@@ -125,6 +134,7 @@ function starter(evt){
 }
 
 function gameOver(){
+  draw = window.setInterval(headBlink, 500);
   console.log("YOU DIED");
   window.clearInterval(func);
 
@@ -144,24 +154,44 @@ function gameOver(){
 function headBlink(){
   if(i){
     ctx.fillStyle = "lime";
-    ctx.fillRect(snake.tail[0].x, snake.tail[0].y, 18, 18);
+    ctx.fillRect(snake.tail[0].x, snake.tail[0].y, blockSize-2, blockSize-2);
     i = false;
   } else {
-    ctx.clearRect(snake.tail[0].x, snake.tail[0].y, 18, 18);
+    ctx.clearRect(snake.tail[0].x, snake.tail[0].y, blockSize-2, blockSize-2);
     i = true;
   }
 }
 
 function controller(evt){
-  dir = evt.key.replace("Arrow", '');
-  snake.changeDir(dir);
+  if (evt.type == 'keydown') {
+    dir = evt.key.replace("Arrow", '');
+    snake.changeDir(dir);
+  } else {
+    snake.changeDir(evt);
+    swapButtons();
+  }
+}
+
+function swapButtons(){
+  if (snake.curDir == 'Down' || snake.curDir == 'up') {
+    buttons[0].setAttribute('onclick', "controller('Left')");
+    buttons[0].innerHTML = bLeft;
+
+    buttons[1].setAttribute('onclick', "controller('Right')");
+    buttons[1].innerHTML= bRight;
+  } else {
+    buttons[0].setAttribute('onclick', "controller('Up')");
+    buttons[0].innerHTML = bUp;
+
+    buttons[1].setAttribute('onclick', "controller('Down')");
+    buttons[1].innerHTML = bDown;
+  }
 }
 
 function game(){
   //Colision
   if (snake.tail.some(block => block.x === snake.x && block.y === snake.y)) {
     if (!(snake.x === snake.tail[1].x)){
-        draw = window.setInterval(headBlink, 500);
         gameOver();
     }
   }
@@ -181,7 +211,42 @@ function game(){
   }
 }
 
+//Canvas creation
+if (deviceWidth < 600) {
+  canvas = document.createElement('canvas');
+  canvas.setAttribute('id', 'game-canvas');
+  canvas.setAttribute('width', '300px');
+  canvas.setAttribute('height', '300px');
 
+  buttons = [document.createElement('button'), document.createElement('button')];
+
+  buttons[0].setAttribute('onclick', 'controller("Up")');
+  buttons[0].innerHTML = bUp;
+
+
+  buttons[1].setAttribute('onclick', 'controller("Down")');
+  buttons[1].innerHTML = bDown;
+
+  console.log(buttons);
+  console.log(buttons[0].innerHTML)
+
+  gamePad = document.getElementById('game-pad');
+  gamePad.appendChild(buttons[0]);
+  gamePad.appendChild(buttons[1]);
+
+  blockSize = 10;
+} else {
+  canvas = document.createElement('canvas');
+  canvas.setAttribute('id', 'game-canvas');
+  canvas.setAttribute('width', '400px');
+  canvas.setAttribute('height', '400px');
+
+  blockSize = 20;
+}
+
+frame = document.getElementById('frame');
+frame.appendChild(canvas);
+ctx = canvas.getContext("2d");
 
 //chrome hack
 if (navigator.appVersion.indexOf("Chrome/") != -1) {
@@ -191,3 +256,4 @@ if (navigator.appVersion.indexOf("Chrome/") != -1) {
 
 //Begin
 window.addEventListener("keydown", starter);
+window.addEventListener("touchstart", starter);
