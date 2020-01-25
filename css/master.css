@@ -19,19 +19,11 @@ nav {
   justify-content: space-between;
 }
 
-button{
-  width: 30%;
-}
-
-button img{
-  width: 30%;
-}
-
 body {
   overflow: hidden;
   padding: 0;
   margin: 0;
-  background-color: #2f2f2f;
+  background-color: #d3d3d3;
 }
 
 footer {
@@ -72,7 +64,7 @@ footer {
   width: 100%;
   bottom: 0;
   color: lime;
-  background-color: #404040;
+  background-color: black;
 }
 
 footer p {
@@ -91,10 +83,6 @@ footer p {
   margin: 1.5em auto;
 }
 
-.desktop-hidden {
-  display: none;
-}
-
 .home {
   z-index: 3;
   font-family: DS-DIGI;
@@ -105,7 +93,7 @@ footer p {
   padding-top: 20%;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0,0,0, 0.80);
 }
 
 .rainbow-box {
@@ -120,6 +108,7 @@ footer p {
 }
 
 #game-canvas {
+  background-color: whitesmoke;
   margin: 0;
   padding: 0;
   box-shadow: 0px 0px 18px lightgrey;
@@ -131,21 +120,6 @@ footer p {
   -ms-animation: blink .75s linear infinite;
   -o-animation: blink .75s linear infinite;
   animation: blink .75s linear infinite;
-}
-
-/*for chrome only*/
-.gradient-rainbow2 {
-      background: linear-gradient(270deg, #b827fc, #2c90fc, #b8fd33, #fec837, #fd1892);
-      background-size: 1000% 1000%;
-      width: 400px;
-      padding: 5px;
-      background-blend-mode: saturation;
-      margin: 0px auto;
-      z-index: -3;
-
-      -webkit-background-clip: border-box;
-
-      -webkit-animation: gradient-rainbow 30s ease infinite;
 }
 
 .gradient-rainbow {
@@ -160,33 +134,17 @@ footer p {
   animation: gradient-rainbow 30s ease infinite;
 }
 
-
-
 @keyframes blink {
     0% { opacity: 1; }
     100% { opacity: 0; }
-}
-
-@-webkit-keyframes gradient-rainbow2 {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
-
-@-moz-keyframes gradient-rainbow {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
 }
 
 @keyframes gradient-rainbow {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
-
 }
 
-/*fake media query, game not working on phones*/
 @media only screen and (max-width: 600px) {
   header h1, h2{
     margin: 0;
